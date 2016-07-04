@@ -12,7 +12,7 @@
   },
   "files": [
     "app",
-    "templates"
+    "template"
   ],
   "main": "app/index.js",
   "keywords": [
