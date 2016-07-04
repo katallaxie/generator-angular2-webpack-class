@@ -1,0 +1,48 @@
+{
+  "name": "generator-angular2-webpack-starter",
+  "version": "0.0.1",
+  "description": "Generator of the Angular 2 Starter kit featuring Angular 2 @AngularClass",
+  "homepage": "https://github.com/katallaxie/generator-angular2-webpack-starter",
+  "bugs": {
+    "url": "https://github.com/katallaxie/generator-angular2-webpack-starter/issues"
+  },
+  "author": {
+    "name": "Sebastian Döll",
+    "email": "sebastian@pixelmilk.com"
+  },
+  "files": [
+    "app",
+    "templates"
+  ],
+  "main": "app/index.js",
+  "keywords": [
+    "yeoman-generator",
+    "generator",
+    "angular",
+    "typescript"
+  ],
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "gitconfiglocal": "^2.0.1",
+    "lodash": "^4.11.1",
+    "underscore.string": "^3.3.4",
+    "yeoman-generator": "^0.23.4",
+    "yosay": "^1.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/katallaxie/generator-angular2-webpack-starter.git"
+  },
+  "scripts": {
+    "prepublish": "npm run test",
+    "test": "eslint app/**/*.js"
+  },
+  "engines": {
+    "node": ">=5.4.0",
+    "npm": ">=3.3.0"
+  },
+  "license": "MIT"
+}
