@@ -41,7 +41,7 @@
   },
   "scripts": {
     "prepublish": "npm run test",
-    "test": "eslint app/**/*.js"
+    "test": "eslint app/**/*.js Gulpfile.js"
   },
   "engines": {
     "node": ">=5.4.0",

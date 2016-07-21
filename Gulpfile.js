@@ -4,7 +4,6 @@
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 var del = require('del');
-var path = require('path');
 
 // config
 var tpl = './angular2-webpack-starter';
