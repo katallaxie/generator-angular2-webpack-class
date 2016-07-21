@@ -106,18 +106,17 @@ module.exports = yeoman.Base.extend({
 
     // static files
     [
-      '_dockerignore',
+      // '_dockerignore',
       '_editorconfig',
-      '_gitattributes',
+      // '_gitattributes',
       '_gitignore',
       '_travis.yml',
-      'Dockerfile',
+      // 'Dockerfile',
       'karma.conf.js',
       'protractor.conf.js',
       'tsconfig.json',
       'tslint.json',
       'typedoc.json',
-      'typings.json',
       'webpack.config.js'
     ].forEach(function(file){
       this.copy(file, file.replace(/_/i, '.'));

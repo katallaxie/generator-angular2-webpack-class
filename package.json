@@ -30,7 +30,10 @@
     "yosay": "^1.2.0"
   },
   "devDependencies": {
-    "eslint": "^3.0.0"
+    "del": "^2.2.1",
+    "eslint": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-replace": "^0.5.4"
   },
   "repository": {
     "type": "git",
