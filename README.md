@@ -1,5 +1,7 @@
 [![taylor swift](https://img.shields.io/badge/secured%20by-taylor%20swift-brightgreen.svg)](https://twitter.com/SwiftOnSecurity)
 [![Build Status](https://travis-ci.org/katallaxie/generator-angular2-webpack-class.svg?branch=master)](https://travis-ci.org/katallaxie/generator-angular2-webpack-class)
+[![devDependency Status](https://david-dm.org/katallaxie/generator-angular2-webpack-class/dev-status.svg)](https://david-dm.org/katallaxie/generator-angular2-webpack-class#info=devDependencies)
+
 
 # @AngularClass Angular 2 Webpack Starter Kit Generator
 
