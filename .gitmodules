@@ -1,6 +1,3 @@
-[submodule "angular2-webpack-starter"]
-	path = angular2-webpack-starter
-	url = https://github.com/AngularClass/angular2-webpack-starter
 [submodule "template"]
 	path = template
 	url = https://github.com/AngularClass/angular2-webpack-starter.git
