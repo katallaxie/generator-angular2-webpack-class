@@ -110,7 +110,7 @@ module.exports = yeoman.Base.extend({
       this.destinationPath(''),
       {globOptions: {
         dot: true,
-        ignore: ['.git']
+        ignore: ['**/.git']
       } }
     );
 
