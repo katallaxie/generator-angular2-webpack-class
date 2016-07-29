@@ -104,40 +104,12 @@ module.exports = yeoman.Base.extend({
   // writing the files to folder
   writing: function() {
 
-    // static files
-    [
-      // '_dockerignore',
-      '_editorconfig',
-      // '_gitattributes',
-      '_gitignore',
-      '_travis.yml',
-      // 'Dockerfile',
-      'karma.conf.js',
-      'protractor.conf.js',
-      'tsconfig.json',
-      'tslint.json',
-      'typedoc.json',
-      'webpack.config.js'
-    ].forEach(function(file){
-      this.copy(file, file.replace(/_/i, '.'));
-    }.bind(this));
-
-    // static directories
-    [
-      'src',
-      'config'
-    ].forEach(function(dir){
-      this.bulkDirectory(dir, dir);
-    }.bind(this));
-
-    // templates
-    [
-      'package.json',
-      'README.md',
-      'LICENSE'
-    ].forEach(function(file){
-      this.template(file);
-    }.bind(this));
+    // copy everything
+    this.fs.copy(
+  	  this.templatePath('**/*'),
+      this.destinationPath(''),
+      {globOptions: { dot: true } }
+    );
 
   },
 
