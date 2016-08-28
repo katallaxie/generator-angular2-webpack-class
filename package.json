@@ -44,8 +44,8 @@
     "test": "eslint app/**/*.js"
   },
   "engines": {
-    "node": ">=5.4.0",
-    "npm": ">=3.3.0"
+    "node": ">=4.5.0",
+    "npm": ">=3"
   },
   "license": "MIT"
 }
