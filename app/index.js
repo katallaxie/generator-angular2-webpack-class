@@ -4,15 +4,17 @@
 // deps
 var _ = require('lodash');
 var chalk = require('chalk');
-var git = require('gitconfiglocal');
 var path = require('path');
 var s = require('underscore.string');
 var yeoman = require('yeoman-generator');
+var process = require('process');
 var yosay = require('yosay');
 var helpers = require('./helpers');
+var remote = require('yeoman-remote');
 
 // settings
 var config = {
+  tar: 'https://github.com/AngularClass/angular2-webpack-starter/archive/master.tar.gz',
   npm: {
     loglevel: 'error',
     progress: false
@@ -37,18 +39,10 @@ module.exports = yeoman.Base.extend({
       defaults: path.basename(process.cwd())
     });
 
-    // read the local git config, as so it it `git init`
-    git('./', (err, cfg) => {
-      this.git = ! err && cfg.remote ? cfg.remote.origin.url : 'https://';
-    });
-
   },
 
   // this is the initializer method of the generator
   initializing: function() {
-
-    // we have a different root for the sources
-    this.sourceRoot(path.join(__dirname, '../template'));
 
     // we would the defaults here
 
@@ -85,12 +79,6 @@ module.exports = yeoman.Base.extend({
       message: `What is your email?`,
       default: this.user.git.email(),
       store: true
-    }, {
-      type: 'input',
-      name: 'git',
-      message: `What is the uri of your git?`,
-      default: this.git,
-      store: true
     }];
 
     // async
@@ -107,20 +95,32 @@ module.exports = yeoman.Base.extend({
   // writing the files to folder
   writing: function() {
 
-    // copy everything
-    this.fs.copy(
-  	  this.templatePath('**/*'),
-      this.destinationPath(''),
-      {
-        globOptions: {
-        dot: true,
-        ignore: [
-            '**/.git',
-            '**/.DS_Store'
-          ]
+    // async
+    var done = this.async();
+
+    // new counter
+    var counter = helpers.ui.progress('Staging \'Angular2 Webpack Starter\' Template ...');
+    counter.start();
+
+    // download tarball
+    remote(config.tar, function (err, cached) {
+      // we have a different root for the sources
+      this.sourceRoot(path.join(cached));
+
+      counter.stop();
+
+      this.fs.copy(
+        this.templatePath('**/*'),
+        this.destinationPath(''),
+        {
+          globOptions: {
+            dot: true
+          }
         }
-      }
-    );
+      );
+
+      done();
+    }.bind(this));
 
   },
 
@@ -136,11 +136,12 @@ module.exports = yeoman.Base.extend({
 
     // npm
     if (!this.options['skip-install']) {
-      // new counter
+      // counter
       var counter = helpers.ui.progress('Installing toolkit via npm ...');
       counter.start();
-      this.runInstall('npm', '', config.npm, function() {
-        counter.stop(); // stop counter after install
+
+      this.npmInstall(undefined, config.npm, function() {
+        counter.stop();
       });
     }
 
