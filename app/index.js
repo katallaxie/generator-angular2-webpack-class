@@ -11,12 +11,13 @@ var process = require('process');
 var yosay = require('yosay');
 var helpers = require('./helpers');
 var remote = require('yeoman-remote');
+var rimraf = require('rimraf');
 
 // settings
 var config = {
   tar: 'https://github.com/AngularClass/angular2-webpack-starter/archive/master.tar.gz',
   npm: {
-    loglevel: 'error',
+    loglevel: 'silent',
     progress: false
   }
 };
@@ -28,7 +29,7 @@ _.mixin(s.exports());
 module.exports = yeoman.Base.extend({
 
   // generator constructor
-  constructor: function() {
+  constructor: function () {
 
     yeoman.Base.apply(this, arguments);
     // add option to skip install
@@ -42,14 +43,25 @@ module.exports = yeoman.Base.extend({
   },
 
   // this is the initializer method of the generator
-  initializing: function() {
+  initializing: function () {
 
-    // we would the defaults here
+    if (this.options['no-cache']) {
+      // new counter
+      var counter = helpers.ui.progress('Cleaning cache ...');
+      counter.start();
+
+      // we would the defaults here
+
+      rimraf(remote.cacheRoot(), {}, function () {
+        counter.stop();
+      }.bind(this));
+
+    }
 
   },
 
   // this property gets called by yeoman
-  prompting: function() {
+  prompting: function () {
 
     // say yo!
     this.log(yosay('\'Greetings\'! Angular 2 Starter kit featuring Angular 2 inspired by @AngularClass'));
@@ -62,27 +74,27 @@ module.exports = yeoman.Base.extend({
       default: this.appname,
       store: true
     }, {
-      type: 'input',
-      name: 'description',
-      message: `What is your great new app doing?`,
-      default: `Something really, really great ...`,
-      store: true
-    }, {
-      type: 'input',
-      name: 'name',
-      message: `What is your name?`,
-      default: this.user.git.name(),
-      store: true
-    }, {
-      type: 'input',
-      name: 'email',
-      message: `What is your email?`,
-      default: this.user.git.email(),
-      store: true
-    }];
+        type: 'input',
+        name: 'description',
+        message: `What is your great new app doing?`,
+        default: `Something really, really great ...`,
+        store: true
+      }, {
+        type: 'input',
+        name: 'name',
+        message: `What is your name?`,
+        default: this.user.git.name(),
+        store: true
+      }, {
+        type: 'input',
+        name: 'email',
+        message: `What is your email?`,
+        default: this.user.git.email(),
+        store: true
+      }];
 
     // async
-    return this.prompt(prompts).then(function(answers) {
+    return this.prompt(prompts).then(function (answers) {
       this.answers = answers;
       this.answers.appname = _.camelize(_.slugify(_.humanize(this.answers.app)));
     }.bind(this));
@@ -90,10 +102,10 @@ module.exports = yeoman.Base.extend({
   },
 
   // configure before proceeding to setup
-  configuring: function() {},
+  configuring: function () { },
 
   // writing the files to folder
-  writing: function() {
+  writing: function () {
 
     // async
     var done = this.async();
@@ -125,22 +137,26 @@ module.exports = yeoman.Base.extend({
   },
 
   // ok, not really necessary
-  default () {
+  default() {
 
     // compose here with others Yeoman generator
 
   },
 
   // post-setup
-  install: function() {
+  install: function () {
 
     // npm
     if (!this.options['skip-install']) {
-      // counter
+      // new counter
+      var cl = console.log;
+      console.log = function () { };
+
       var counter = helpers.ui.progress('Installing toolkit via npm ...');
       counter.start();
 
-      this.npmInstall(undefined, config.npm, function() {
+      this.npmInstall(undefined, config.npm, function () {
+        console.log = cl;
         counter.stop();
       });
     }
@@ -148,7 +164,7 @@ module.exports = yeoman.Base.extend({
   },
 
   // happy end
-  end: function() {
+  end: function () {
 
     // saving config
     this.config.save();
