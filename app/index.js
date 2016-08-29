@@ -9,11 +9,13 @@ var path = require('path');
 var s = require('underscore.string');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
+var helpers = require('./helpers');
 
 // settings
 var config = {
   npm: {
-    loglevel: 'error'
+    loglevel: 'error',
+    progress: false
   }
 };
 
@@ -25,6 +27,7 @@ module.exports = yeoman.Base.extend({
 
   // generator constructor
   constructor: function() {
+
     yeoman.Base.apply(this, arguments);
     // add option to skip install
 
@@ -108,10 +111,15 @@ module.exports = yeoman.Base.extend({
     this.fs.copy(
   	  this.templatePath('**/*'),
       this.destinationPath(''),
-      {globOptions: {
+      {
+        globOptions: {
         dot: true,
-        ignore: ['**/.git']
-      } }
+        ignore: [
+            '**/.git',
+            '**/.DS_Store'
+          ]
+        }
+      }
     );
 
   },
@@ -124,11 +132,16 @@ module.exports = yeoman.Base.extend({
   },
 
   // post-setup
-  installing: function() {
+  install: function() {
 
     // npm
     if (!this.options['skip-install']) {
-      this.runInstall('npm', '', config.npm);
+      // new counter
+      var counter = helpers.ui.progress('Installing toolkit via npm ...');
+      counter.start();
+      this.runInstall('npm', '', config.npm, function() {
+        counter.stop(); // stop counter after install
+      });
     }
 
   },
