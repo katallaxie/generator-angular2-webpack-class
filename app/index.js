@@ -48,7 +48,7 @@ module.exports = yeoman.Base.extend({
   // this is the initializer method of the generator
   initializing: function () {
 
-    if (!this.options['cache']) {
+    if (!this.options.cache) {
       // new counter
       var counter = helpers.ui.progress('Cleaning cache ...');
       counter.start();
