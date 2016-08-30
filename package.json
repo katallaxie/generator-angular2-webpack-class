@@ -1,6 +1,6 @@
 {
   "name": "generator-angular2-webpack-class",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Generator of the Angular 2 Starter kit featuring Angular 2 @AngularClass",
   "homepage": "https://github.com/katallaxie/generator-angular2-webpack-starter",
   "bugs": {
