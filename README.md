@@ -34,8 +34,8 @@ yo angular2-webpack-class
 
 ## Options
 
-### no-cache
-Clears the cache directory of `yeoman-remote` and fetches the most recent version of `master`.
+### cache
+Uses the cache directory of `yeoman-remote` and fetches the most recent version of `master`.
 
 ---
 Coded by [@katallaxie](http://twitter.com/katallaxie)

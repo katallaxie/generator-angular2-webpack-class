@@ -40,12 +40,15 @@ module.exports = yeoman.Base.extend({
       defaults: path.basename(process.cwd())
     });
 
+    // use the cache
+    this.option('cache');
+
   },
 
   // this is the initializer method of the generator
   initializing: function () {
 
-    if (this.options['no-cache']) {
+    if (!this.options['cache']) {
       // new counter
       var counter = helpers.ui.progress('Cleaning cache ...');
       counter.start();
@@ -55,7 +58,6 @@ module.exports = yeoman.Base.extend({
       rimraf(remote.cacheRoot(), {}, function () {
         counter.stop();
       }.bind(this));
-
     }
 
   },
