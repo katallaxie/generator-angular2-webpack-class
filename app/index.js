@@ -48,6 +48,9 @@ module.exports = yeoman.Base.extend({
   // this is the initializer method of the generator
   initializing: function () {
 
+    // async
+    var done = this.async();
+
     if (!this.options.cache) {
       // new counter
       var counter = helpers.ui.progress('Cleaning cache ...');
@@ -57,7 +60,10 @@ module.exports = yeoman.Base.extend({
 
       rimraf(remote.cacheRoot(), {}, function () {
         counter.stop();
+        done();
       }.bind(this));
+    } else {
+      done();
     }
 
   },
