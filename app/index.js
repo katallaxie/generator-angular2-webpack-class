@@ -154,6 +154,27 @@ module.exports = yeoman.Base.extend({
   // post-setup
   install: function () {
 
+    var pkg = require(this.destinationPath('package.json'));
+
+    pkg = _.merge(pkg, {
+      author: {
+        name: this.answers.name,
+        email: this.answers.email
+      },
+      bugs: {
+        url: ''
+      },
+      description: this.answers.description,
+      homepage: '',
+      repository: {
+        type: 'git',
+        url: ''
+      },
+      version: '0.0.1',
+    });
+
+    this.write(this.destinationPath('package.json'), JSON.stringify(pkg, null, 2));
+
     // npm
     if (!this.options['skip-install']) {
       // new counter
