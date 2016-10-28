@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "del": "^2.2.1",
-    "eslint": "^3.0.0"
+    "eslint": "^3.9.0"
   },
   "repository": {
     "type": "git",
